@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { getScreenshot } from "./_lib/chromium";
 
-import { oppscore_html } from "./_lib/oppscore";
+import { oppscore_html } from "./_lib/oppscore-utils";
 
 const isDev = !process.env.AWS_REGION;
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
@@ -28,7 +28,7 @@ async function query_to_image(req: any, res: ServerResponse) {
   // const { name, title, party, score, image, debug } = req.query
 
   const html = oppscore_html(req.query);
-  console.log("html", html);
+  // console.log("html", html);
 
   if (isHtmlDebug || req.query.debug) {
     res.setHeader("Content-Type", "text/html");
