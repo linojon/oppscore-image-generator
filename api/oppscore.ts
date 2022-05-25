@@ -7,7 +7,7 @@ const isDev = !process.env.AWS_REGION;
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 // example:
-//  /api/oppscore?name=John%20Doe&title=President&party=Libertarian&score=4.2&image=https://voteview.com/static/img/bios/099902.jpg
+//  https://oppscore-image-generator-parkerhill.vercel.app/api/oppscore?name=John%20Doe&title=President&party=Libertarian&score=4.2&image=https://voteview.com/static/img/bios/099902.jpg&width=1200&height=630
 
 export default async function handler(
   req: IncomingMessage,
@@ -27,6 +27,7 @@ async function query_to_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
   const { width, height } = req.query;
+  console.log("query_to_image url", req.url);
   console.log(req.query.name, "width", width, "height", height);
   const html = oppscore_html(req.query);
   // console.log("html", html);

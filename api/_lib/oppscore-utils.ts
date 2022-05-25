@@ -66,7 +66,7 @@ export function oppscore_html(props: OppscoreHtmlProps) {
       ${partyStr}</p>
     `;
 
-  const headshot_image = corsProxy(image);
+  const headshot_image = corsProxy(decodeURIComponent(image));
 
   const subject_photo = `
     <div style="max-width: 275px; height: 275px; display: inline-block">
@@ -171,7 +171,7 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
       ${partyStr}</p>
     `;
 
-  const headshot_image = corsProxy(image);
+  const headshot_image = corsProxy(decodeURIComponent(image));
 
   const subject_photo = `
     <div style="max-width: ${scale * 275}px; height: ${
