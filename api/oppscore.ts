@@ -26,7 +26,8 @@ export default async function handler(
 async function query_to_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
-
+  const { width, height } = req.query;
+  console.log("width", width, "height", height);
   const html = oppscore_html(req.query);
   // console.log("html", html);
 
@@ -36,7 +37,13 @@ async function query_to_image(req: any, res: ServerResponse) {
     return;
   }
   const fileType = "png";
-  const file = await getScreenshot(1080, 1080, html as string, fileType, isDev);
+  const file = await getScreenshot(
+    Number(width),
+    Number(height),
+    html as string,
+    fileType,
+    isDev
+  );
   res.statusCode = 200;
   res.setHeader("Content-Type", `image/${fileType}`);
   res.setHeader(
