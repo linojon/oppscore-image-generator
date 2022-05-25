@@ -27,7 +27,7 @@ async function query_to_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
   const { width, height } = req.query;
-  console.log("width", width, "height", height);
+  console.log(req.query.name, "width", width, "height", height);
   const html = oppscore_html(req.query);
   // console.log("html", html);
 
