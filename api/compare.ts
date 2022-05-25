@@ -1,13 +1,12 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { getScreenshot } from "./_lib/chromium";
-import { oppscore_html } from "./_lib/oppscore_html";
+import { oppscore_compare_html } from "./_lib/oppscore_compare_html";
 
 const isDev = !process.env.AWS_REGION;
 const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 // example:
-//  https://oppscore-image-generator-parkerhill.vercel.app/api/oppscore?name=John%20Doe&title=President&party=Libertarian&score=4.2&image=https://voteview.com/static/img/bios/099902.jpg&width=1200&height=630
-// /api/oppscore?name=JOHN%20KENNEDY&title=President%2C%20%20USA%20(1961%26%238209%3B1963)&party=Democrat&score=4&image=https%253A%252F%252Fvoteview.com%252Fstatic%252Fimg%252Fbios%252F099902.jpg&width=1200&height=630
+//
 
 export default async function handler(
   req: IncomingMessage,
@@ -26,10 +25,18 @@ export default async function handler(
 async function query_to_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
-  const { width, height } = req.query;
+  const { a, b, w, h } = req.query;
   console.log("query_to_image url", req.url);
-  console.log(req.query.name, "width", width, "height", height);
-  const html = oppscore_html(req.query);
+  console.log(req.query.name, "width", w, "height", h, "a", a, "b", b);
+
+  const subjectA = JSON.parse(decodeURIComponent(a));
+  console.log("subjectA", subjectA);
+  const subjectB = JSON.parse(decodeURIComponent(b));
+  console.log("subjectB", subjectB);
+  const width = !!w ? Number(w) : 1080;
+  const height = !!h ? Number(h) : 1080;
+
+  const html = oppscore_compare_html({ subjectA, subjectB, width, height });
   // console.log("html", html);
 
   if (isHtmlDebug || req.query.debug) {
@@ -39,8 +46,8 @@ async function query_to_image(req: any, res: ServerResponse) {
   }
   const fileType = "png";
   const file = await getScreenshot(
-    Number(width),
-    Number(height),
+    width,
+    height,
     html as string,
     fileType,
     isDev
