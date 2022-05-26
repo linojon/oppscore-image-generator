@@ -27,27 +27,30 @@ interface OppscoreCompareHtmlProps {
 export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
   const { subjectA, subjectB, width, height } = props;
 
-  const yPadding = 163;
-  const xPadding = 30;
-  const spacing = 30;
+  const yPadding = 80; // 163;
+  const xPadding = 0; // 30;
+  const vSpacing = 30;
 
   const rootStyle = `
-          width: ${width + 4}px;
-          height: ${height + 4}px;
+          width: ${width}px;
+          height: ${height}px;
           font-family: Helvetica, Arial, Sans-Serif;
           font-weight: bold;
           font-size: 1.5em;
           text-align: center;
           padding: ${yPadding}px ${xPadding}px;
           background-color: white;
-          border: 2px solid green;
     `;
+
+  // width: ${width + 4}px;
+  // height: ${height + 4}px;
+  //    border: 2px solid green;
 
   // src -s 1173x294 wanth 120 so 480x120
   const oppscoreLogoW = 480;
   const oppscoreLogoH = 120;
   const oppscore_logo = `
-  <img src="${assets_host}/static/brand/oppscore-logo.png" width="${oppscoreLogoW}px" height="${oppscoreLogoH}px" style="display: block; margin: ${spacing}px auto" />
+  <img src="${assets_host}/static/brand/oppscore-logo.png" width="${oppscoreLogoW}px" height="${oppscoreLogoH}px" style="display: block; margin: ${vSpacing}px auto" />
 `;
 
   // src is 800x240, want 100 h, so 333 x 100
@@ -77,11 +80,11 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
   `;
 
   // want 512 x 430
-  // const xGutter = 15;
+  const xGutter = 5;
 
-  const subjectBoxA = subject_score_box(subjectA);
+  const subjectBoxA = subject_score_box(subjectA, xGutter);
   //`<div style="width: 512px; height: 430px; border: 1px solid black; display: inline-block; margin-right: ${xGutter}px;">${subjectA.name}</div>`;
-  const subjectBoxB = subject_score_box(subjectB);
+  const subjectBoxB = subject_score_box(subjectB, 0);
   //`<div style="width: 512px; height: 430px; border: 1px solid black; display: inline-block; margin-left: ${xGutter}px;">${subjectB.name}</div>`;
 
   //
@@ -92,7 +95,7 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
         ${subjectBoxA}
         ${subjectBoxB}
       </div>
-      <div style="display: inline-block; margin: ${spacing}px auto;">
+      <div style="display: inline-block; margin: ${vSpacing}px auto;">
         ${leftGlove}
         ${gousa_logo}
         ${rightGlove}
@@ -104,16 +107,28 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
 
 //--------------
 
-function subject_score_box(props: OppscoreHtmlProps) {
+function subject_score_box(props: OppscoreHtmlProps, rightMargin: number) {
   const { name, title, party, score: scoreStr, image } = props;
-
+  // console.log(
+  //   "subject_score_box",
+  //   "name",
+  //   name,
+  //   "title",
+  //   title,
+  //   "party",
+  //   party,
+  //   "score",
+  //   scoreStr,
+  //   "image",
+  //   image
+  // );
   const fontSize = 0.75;
   //width: 512px; height: 430px;
-  const rootStyle = `width: 512px; height: 512px; border: 1px solid black; display: inline-block; margin: 0 10px; padding-top: 20px`;
+  const rootStyle = `width: 512px; height: 512px; border: 1px solid black; display: inline-block; margin: 0 ${rightMargin} 0 0; padding: 20px 0 0 0`;
 
   const partyStr = party ? `${party} Party` : "";
 
-  const score = Number.parseFloat(scoreStr);
+  const score = Number(scoreStr);
   const scoreNumberString = (score > 0 ? "+" : "") + score.toFixed(2);
   const scoreColor = score <= 0 ? gousaRed : gousaBlue;
 

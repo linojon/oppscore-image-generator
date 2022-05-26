@@ -13,7 +13,7 @@ export default async function handler(
   res: ServerResponse
 ) {
   try {
-    await query_to_image(req, res);
+    await query_to_compare_image(req, res);
   } catch (e) {
     res.statusCode = 500;
     res.setHeader("Content-Type", "text/html");
@@ -22,26 +22,48 @@ export default async function handler(
   }
 }
 
-async function query_to_image(req: any, res: ServerResponse) {
+async function query_to_compare_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
-  const { a, b, w, h } = req.query;
-  console.log("query_to_image url", req.url);
-  console.log(req.query.name, "width", w, "height", h, "a", a, "b", b);
+  // console.log("req.body", req.body);
+  // const { a, b, w, h } = req.body.data;
+  // console.log("query_to_compare_image url", req.url);
+  // console.log("width", w, "height", h, "a", a, "b", b);
 
-  const subjectA = JSON.parse(decodeURIComponent(a));
+  // const subjectA = JSON.parse(decodeURIComponent(a));
+  // console.log("subjectA", subjectA);
+  // const subjectB = JSON.parse(decodeURIComponent(b));
+  // console.log("subjectB", subjectB);
+  // const width = !!w ? Number(w) : 1080;
+  // const height = !!h ? Number(h) : 1080;
+
+  console.log("query_to_compare_image url", req.url);
+  const {
+    subjectA: subjectAJson,
+    subjectB: subjectBJson,
+    width: widthStr,
+    height: heightStr,
+  } = req.method == "GET" ? req.query : req.body.data;
+  const subjectA =
+    typeof subjectAJson === "string" ? JSON.parse(subjectAJson) : subjectAJson;
+  const subjectB =
+    typeof subjectBJson === "string" ? JSON.parse(subjectBJson) : subjectBJson;
   console.log("subjectA", subjectA);
-  const subjectB = JSON.parse(decodeURIComponent(b));
   console.log("subjectB", subjectB);
-  const width = !!w ? Number(w) : 1080;
-  const height = !!h ? Number(h) : 1080;
+  const width = Number(widthStr);
+  const height = Number(heightStr);
+  console.log("width", width, typeof width, "height", height, typeof height);
 
   const html = oppscore_compare_html({ subjectA, subjectB, width, height });
   // console.log("html", html);
 
   if (isHtmlDebug || req.query.debug) {
     res.setHeader("Content-Type", "text/html");
-    res.end(html);
+    res.end(
+      `<div style="width:${width + 4}px; height:${
+        height + 4
+      }px; border: 2px solid green;">${html}</div>`
+    );
     return;
   }
   const fileType = "png";
