@@ -1,7 +1,8 @@
 //-----------------------
 
 // const public_host = process.env.NEXT_PUBLIC_HOST || "";
-export const assets_host = "http://localhost:3000"; //  "https://www.oppscore.org";
+// export const assets_host = "http://localhost:3000";
+export const assets_host = "https://www.oppscore.org";
 
 export const gousaRed = "#c02529";
 export const gousaBlue = "#275aa9";
