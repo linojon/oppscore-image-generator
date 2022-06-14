@@ -63,12 +63,12 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
   // src 875 x 600 want 100 h, so 146 x 100
   const leftGloveFile =
     Number(subjectA.score) < 0
-      ? "/static/icons/red-boxing-glove-left.png"
-      : "/static/icons/blue-boxing-glove-left.png";
+      ? "/static/icons/red-boxing-glove-left-bw.png"
+      : "/static/icons/blue-boxing-glove-left-bw.png";
   const rightGloveFile =
     Number(subjectB.score) < 0
-      ? "/static/icons/red-boxing-glove-right.png"
-      : "/static/icons/blue-boxing-glove-right.png";
+      ? "/static/icons/red-boxing-glove-right-bw.png"
+      : "/static/icons/blue-boxing-glove-right-bw.png";
   const gloveW = 146;
   const gloveH = 100;
   const gloveSpacing = 75;
