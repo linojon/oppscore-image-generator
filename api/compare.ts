@@ -43,6 +43,7 @@ async function query_to_compare_image(req: any, res: ServerResponse) {
     subjectB: subjectBJson,
     width: widthStr,
     height: heightStr,
+    headline: headlineJson,
   } = req.method == "GET" ? req.query : req.body.data;
   const subjectA =
     typeof subjectAJson === "string" ? JSON.parse(subjectAJson) : subjectAJson;
@@ -53,8 +54,16 @@ async function query_to_compare_image(req: any, res: ServerResponse) {
   const width = Number(widthStr);
   const height = Number(heightStr);
   console.log("width", width, typeof width, "height", height, typeof height);
+  const headline =
+    typeof headlineJson === "string" ? JSON.parse(headlineJson) : headlineJson;
 
-  const html = oppscore_compare_html({ subjectA, subjectB, width, height });
+  const html = oppscore_compare_html({
+    subjectA,
+    subjectB,
+    width,
+    height,
+    headline,
+  });
   // console.log("html", html);
 
   if (isHtmlDebug || req.query.debug) {

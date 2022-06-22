@@ -6,26 +6,15 @@ import {
   scoreTextLookup,
 } from "./oppscore-utils";
 import { corsProxy, imgCorsParams } from "./corsProxy";
-
-export type OppscoreHtmlProps = {
-  name: string;
-  title: string;
-  party: string;
-  score: string;
-  image: string;
-};
-
-interface OppscoreCompareHtmlProps {
-  subjectA: OppscoreHtmlProps;
-  subjectB: OppscoreHtmlProps;
-  width: number;
-  height: number;
-}
+import {
+  OppscoreCompareImageProps,
+  OppscoreImageInfo,
+} from "../OppscoreImageTypes";
 
 //-------------------------
 
-export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
-  const { subjectA, subjectB, width, height } = props;
+export function oppscore_compare_html(props: OppscoreCompareImageProps) {
+  const { subjectA, subjectB, width, height, headline } = props;
 
   const yPadding = 80; // 163;
   const xPadding = 0; // 30;
@@ -42,16 +31,29 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
           background-color: white;
     `;
 
+  let headlineHtml = "";
+  if (headline) {
+    const color = headline.color || gousaBlue;
+    const size = headline.size || "2.0em";
+    const weight = "700";
+    const style = `color: ${color}; font-size: ${size}; font-weight: ${weight}; white-space: nowrap; text-align: center; margin-bottom: 20px;`;
+    headlineHtml = `<div style="${style}">
+      ${headline.text}
+    </div>`;
+  }
+
   // width: ${width + 4}px;
   // height: ${height + 4}px;
   //    border: 2px solid green;
 
   // src -s 1173x294 wanth 120 so 480x120
-  const oppscoreLogoW = 480;
-  const oppscoreLogoH = 120;
+  const oppscoreLogoW = !!headline ? 360 : 480;
+  const oppscoreLogoH = !!headline ? 90 : 120;
   const oppscore_logo = `
-  <img src="${assets_host}/static/brand/oppscore-logo.png" width="${oppscoreLogoW}px" height="${oppscoreLogoH}px" style="display: block; margin: ${vSpacing}px auto" />
+  <img src="${assets_host}/static/brand/oppscore-logo.png" width="${oppscoreLogoW}px" height="${oppscoreLogoH}px" style="display: block; margin: 0 auto ${vSpacing}px auto" />
 `;
+
+  //===================
 
   // src is 800x240, want 100 h, so 333 x 100
   const gousaLogoW = 333;
@@ -91,6 +93,7 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
   const html = `
     <div style="${rootStyle}">
       ${oppscore_logo}
+      ${headlineHtml}
       <div> 
         ${subjectBoxA}
         ${subjectBoxB}
@@ -107,8 +110,8 @@ export function oppscore_compare_html(props: OppscoreCompareHtmlProps) {
 
 //--------------
 
-function subject_score_box(props: OppscoreHtmlProps, rightMargin: number) {
-  const { name, title, party, score: scoreStr, image } = props;
+function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
+  const { name, title, party, score: scoreStr, image, headline } = props;
   // console.log(
   //   "subject_score_box",
   //   "name",
@@ -124,7 +127,21 @@ function subject_score_box(props: OppscoreHtmlProps, rightMargin: number) {
   // );
   const fontSize = 0.75;
   //width: 512px; height: 430px;
-  const rootStyle = `width: 512px; height: 512px; border: 1px solid black; display: inline-block; margin: 0 ${rightMargin} 0 0; padding: 20px 0 0 0`;
+
+  const rootStyle = `width: 512px; display: inline-block; margin: 0 ${rightMargin} 0 0;`;
+
+  const boxStyle = `width: 512px; height: 512px; border: 1px solid black; display: inline-block; padding: 20px 0 0 0`;
+
+  let headlineHtml = "";
+  if (headline) {
+    const color = headline.color || gousaRed;
+    const size = headline.size || "2.0em";
+    const weight = "900";
+    const style = `color: ${color}; font-size: ${size}; font-weight: ${weight}; white-space: nowrap; text-align: center; margin-bottom: 20px;`;
+    headlineHtml = `<div style="${style}">
+        ${headline.text}
+      </div>`;
+  }
 
   const partyStr = party ? `${party} Party` : "";
 
@@ -194,14 +211,18 @@ function subject_score_box(props: OppscoreHtmlProps, rightMargin: number) {
   `;
 
   const html = `
- <div style="${rootStyle}">
-   ${subject_info}
-   <div>
-     ${subject_photo}
-     ${score_with_arrow}
-   </div>
-   ${opportunity_score}
- </div>`;
+  <div style="${rootStyle}">
+    ${headlineHtml}
+    <div style="${boxStyle}">
+      ${subject_info}
+      <div>
+        ${subject_photo}
+        ${score_with_arrow}
+      </div>
+      ${opportunity_score}
+    </div>
+  </div>
+  `;
 
   return html;
 }
