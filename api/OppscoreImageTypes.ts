@@ -30,4 +30,5 @@ export type OppscoreCompareImageProps = {
   width: number;
   height: number;
   headline?: OppscoreText;
+  footline?: OppscoreText;
 };

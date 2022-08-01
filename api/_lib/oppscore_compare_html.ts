@@ -11,14 +11,14 @@ import {
   OppscoreImageInfo,
 } from "../OppscoreImageTypes";
 
-//-------------------------
+//=========================================
 
 export function oppscore_compare_html(props: OppscoreCompareImageProps) {
-  const { subjectA, subjectB, width, height, headline } = props;
+  const { subjectA, subjectB, width, height, headline, footline } = props;
 
-  const yPadding = 80; // 163;
+  const yPadding = 0; // 80; // 163;
   const xPadding = 0; // 30;
-  const vSpacing = 30;
+  const vSpacing = 0; // 15;
 
   const rootStyle = `
           width: ${width}px;
@@ -29,7 +29,13 @@ export function oppscore_compare_html(props: OppscoreCompareImageProps) {
           text-align: center;
           padding: ${yPadding}px ${xPadding}px;
           background-color: white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-evenly;
     `;
+
+  //--------------------
 
   let headlineHtml = "";
   if (headline) {
@@ -42,6 +48,26 @@ export function oppscore_compare_html(props: OppscoreCompareImageProps) {
     </div>`;
   }
 
+  // if (!footline) {
+  //   footline = {
+  //     text: "Side by Side: YOU DECIDE",
+  //     size: "2.8em",
+  //     color: "#192b4d",
+  //   };
+  // }
+
+  let footlineHtml = "";
+  if (footline) {
+    const color = footline.color || gousaBlue;
+    const size = footline.size || "2.0em";
+    const weight = "900";
+    const style = `color: ${color}; font-size: ${size}; font-weight: ${weight}; font-style: italic; white-space: nowrap; text-align: center; margin-bottom: 20px;`;
+    footlineHtml = `<div style="${style}">
+      ${footline.text}
+    </div>`;
+  }
+
+  //--------------------
   // width: ${width + 4}px;
   // height: ${height + 4}px;
   //    border: 2px solid green;
@@ -53,7 +79,7 @@ export function oppscore_compare_html(props: OppscoreCompareImageProps) {
   <img src="${assets_host}/static/brand/oppscore-logo.png" width="${oppscoreLogoW}px" height="${oppscoreLogoH}px" style="display: block; margin: 0 auto ${vSpacing}px auto" />
 `;
 
-  //===================
+  //--------------------
 
   // src is 800x240, want 100 h, so 333 x 100
   const gousaLogoW = 333;
@@ -81,6 +107,16 @@ export function oppscore_compare_html(props: OppscoreCompareImageProps) {
   <img src="${assets_host}${rightGloveFile}" width="${gloveW}px" height="${gloveH}px" style="display: inline-block; margin-left: ${gloveSpacing}px;" />
   `;
 
+  //--------------------
+
+  const footerByline = `
+    <div style="width: 100%; font-size: 1.25em; font-style: italic; font-weight: bold; text-align: center;">
+      OppScore<sup>&reg;</sup> by GOUSA: The Unbiased Political Credit Rating<sup>&trade;</sup>
+    </div>
+    `;
+
+  //--------------------
+
   // want 512 x 430
   const xGutter = 5;
 
@@ -98,17 +134,19 @@ export function oppscore_compare_html(props: OppscoreCompareImageProps) {
         ${subjectBoxA}
         ${subjectBoxB}
       </div>
+      ${footlineHtml}
       <div style="display: inline-block; margin: ${vSpacing}px auto;">
         ${leftGlove}
         ${gousa_logo}
         ${rightGlove}
       </div>
+      ${footerByline}
     </div>
   `;
   return html;
 }
 
-//--------------
+//=====================================================
 
 function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
   const { name, title, party, score: scoreStr, image, headline } = props;
