@@ -25,14 +25,13 @@ export function scoreStarsImage(
 }
 
 export function scoreTextLookup(score: number) {
-  if (approxeq(score, 0, 0.001)) return "Zero Opportunity Score";
-  else if (score <= -3.0 && score >= -5.0)
-    return "Extreme Anti-Opportunity Score";
+  if (approxeq(score, 0, 0.1)) return "Zero Opportunity Score";
+  else if (score < -2.0) return "Extreme Anti-Opportunity Score";
   else if (score < 0) return "Poor Anti-Opportunity Score";
   else if (score < 2.0) return "Weak Opportunity Score";
-  else if (score < 4.0) return "Moderate Pro-Opportunity Score";
-  else if (score <= 5.0) return "Strong Pro-Opportunity Score";
-  return `[Score error ${score}]`;
+  else if (score < 3.5) return "Moderate Pro-Opportunity Score";
+  else return "Strong Pro-Opportunity Score";
+  // return `[Score error ${score}]`
 }
 
 export function approxeq(v1: number, v2: number, epsilon = 0.001) {
