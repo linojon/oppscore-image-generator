@@ -10,6 +10,8 @@ const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 
 // http://localhost:3001/api/compare?subjectA=%7B%22name%22%3A%22RONALD%20REAGAN%22%2C%22title%22%3A%22President%2C%20%20USA%20(1981-1989)%22%2C%22party%22%3A%22Republican%22%2C%22score%22%3A%224.4%22%2C%22image%22%3A%22https%253A%252F%252Fvoteview.com%252Fstatic%252Fimg%252Fbios%252F099907.jpg%22%2C%22headline%22%3A%7B%22text%22%3A%22WORKING%20FOR%20YOU%22%2C%22size%22%3A%221.5em%22%2C%22color%22%3A%22green%22%7D%7D&subjectB=%7B%22name%22%3A%22LORING%20BARNES%22%2C%22title%22%3A%22Candidate%20for%20%20StateHouse%2C%20%20MA%202023%22%2C%22party%22%3A%22Republican%22%2C%22score%22%3A%223.25%22%2C%22image%22%3A%22https%253A%252F%252Fmedia-exp2.licdn.com%252Fdms%252Fimage%252FC5603AQGHCn3sPs6qHA%252Fprofile-displayphoto-shrink_800_800%252F0%252F1653447160762%253Fe%253D1662595200%2526v%253Dbeta%2526t%253DlVckrAsbYLKPWEaJiT-ojgD02DpRkqmVenxk4Q8vBz8%22%2C%22headline%22%3A%7B%22text%22%3A%22WORKING%20AGAINST%20YOU%22%2C%22size%22%3A%221.5em%22%7D%7D&width=1080&height=1080
 
+// http://localhost:3001/api/compare?subjectA={"name":"BARACK OBAMA","title":"President, USA (2009-2017)","party":"Democrat","image":"https://voteview.com/static/img/bios/099911.jpg"}&subjectB={"name":"LIZ CHENEY","title":"Rep. WY (WY-01) (2017-present)","party":"Republican","image":"https://voteview.com/static/img/bios/021710.jpg"}&width=1080&height=1080
+
 export default async function handler(
   req: IncomingMessage,
   res: ServerResponse

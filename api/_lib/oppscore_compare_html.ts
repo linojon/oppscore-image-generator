@@ -183,13 +183,22 @@ function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
 
   const partyStr = party ? `${party} Party` : "";
 
-  const score = Number(scoreStr);
-  const scoreNumberString = (score > 0 ? "+" : "") + score.toFixed(2);
-  const scoreColor = score <= 0 ? gousaRed : gousaBlue;
+  let score, scoreNumberString, scoreColor, score_arrow_image, scoreText;
 
-  const score_arrow_image =
-    score <= 0 ? "/static/RedDownArrow128.png" : "/static/BlueUpArrow128.png";
+  if (!!scoreStr) {
+    score = Number(scoreStr);
+    scoreNumberString = (score > 0 ? "+" : "") + score.toFixed(2);
+    scoreColor = score <= 0 ? gousaRed : gousaBlue;
 
+    score_arrow_image =
+      score <= 0 ? "/static/RedDownArrow128.png" : "/static/BlueUpArrow128.png";
+    scoreText = scoreTextLookup(score).toUpperCase();
+  } else {
+    scoreNumberString = "??";
+    scoreColor = gousaBlue;
+    score_arrow_image = "/static/questionArrow128.png";
+    scoreText = "---";
+  }
   //
   const subject_info = `
     <h3 style="margin: 0;">Politician:</h3>
@@ -232,19 +241,20 @@ function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
   </div>
 `;
 
-  const stars_image = scoreStarsImage(score);
+  console.log("score", typeof score, score, assets_host);
+  const stars_image =
+    score == undefined
+      ? "/static/star-graphics/blank-stars-bw-5.png"
+      : scoreStarsImage(score);
   //
   const starsH = 70;
-
   const opportunity_score = `
     <div style="font-size: ${fontSize}em">
       <p>Opportunity Score&trade; (scale -5.0 to +5.0):
       <span style="color: ${scoreColor}; font-weight: 800; font-size: 1em;">${scoreNumberString}</span></p>
 
       <img src="${assets_host}${stars_image}" height="${starsH}px"  style="display: block; margin: auto" />
-      <p>RATING:  <span style="color: ${scoreColor}; font-weight: 800; font-size: 1em;">${scoreTextLookup(
-    score
-  ).toUpperCase()}</span></p>
+      <p>RATING:  <span style="color: ${scoreColor}; font-weight: 800; font-size: 1em;">${scoreText}</span></p>
     </div>
   `;
 
