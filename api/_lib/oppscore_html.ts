@@ -69,12 +69,22 @@ export function oppscore_html(props: OppscoreHtmlProps) {
 
   const headshot_image = corsProxy(decodeURIComponent(image));
 
+  // const subject_photo = `
+  //   <div style="max-width: 275px; height: 275px; display: inline-block">
+  //     <img
+  //     ${imgCorsParams}
+  //     src="${headshot_image}"
+  //     height="275px" />
+  //   </div>
+  //   `;
+
   const subject_photo = `
-    <div style="max-width: 275px; height: 275px; display: inline-block">
+    <div style="max-width: 240px; height: 240px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
       <img
       ${imgCorsParams}
       src="${headshot_image}"
-      height="275px" />
+      width="100%"
+      height="auto" />
     </div>
     `;
 
@@ -174,14 +184,25 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
 
   const headshot_image = corsProxy(decodeURIComponent(image));
 
+  // const subject_photo = `
+  //   <div style="max-width: ${scale * 275}px; height: ${
+  //   scale * 275
+  // }px; display: inline-block">
+  //     <img
+  //     ${imgCorsParams}
+  //     src="${headshot_image}"
+  //     height="${scale * 275}px" />
+  //   </div>
+  //   `;
   const subject_photo = `
-    <div style="max-width: ${scale * 275}px; height: ${
-    scale * 275
-  }px; display: inline-block">
+    <div style="max-width: ${scale * 240}px; height: ${
+    scale * 240
+  }px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
       <img
       ${imgCorsParams}
       src="${headshot_image}"
-      height="${scale * 275}px" />
+      width="100%"
+      height="auto" />
     </div>
     `;
 

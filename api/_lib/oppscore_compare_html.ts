@@ -211,12 +211,22 @@ function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
 
   // 150 x 150 circle
   const imgW = 150;
+  // const subject_photo = `
+  //  <div style="max-width: ${imgW}px; height: ${imgW}px; display: inline-block">
+  //    <img
+  //    ${imgCorsParams}
+  //    src="${headshot_image}"
+  //    height="${imgW}px" />
+  //  </div>
+  //  `;
+
   const subject_photo = `
-   <div style="max-width: ${imgW}px; height: ${imgW}px; display: inline-block">
+   <div style="max-width: ${imgW}px; height: ${imgW}px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
      <img
      ${imgCorsParams}
      src="${headshot_image}"
-     height="${imgW}px" />
+     width="100%"
+     height="auto" />
    </div>
    `;
 
