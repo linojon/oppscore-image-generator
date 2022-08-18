@@ -221,7 +221,7 @@ function subject_score_box(props: OppscoreImageInfo, rightMargin: number) {
   //  `;
 
   const subject_photo = `
-   <div style="max-width: ${imgW}px; height: ${imgW}px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
+   <div style="width: ${imgW}px; height: ${imgW}px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
      <img
      ${imgCorsParams}
      src="${headshot_image}"

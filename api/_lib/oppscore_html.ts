@@ -79,7 +79,7 @@ export function oppscore_html(props: OppscoreHtmlProps) {
   //   `;
 
   const subject_photo = `
-    <div style="max-width: 240px; height: 240px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
+    <div style="width: 240px; height: 240px; display: inline-block; border-radius: 50%; overflow: hidden; vertical-align: top;">
       <img
       ${imgCorsParams}
       src="${headshot_image}"
