@@ -69,6 +69,9 @@ export function oppscore_html(props: OppscoreHtmlProps) {
 
   const headshot_image = corsProxy(decodeURIComponent(image));
 
+  console.log("headshot", image);
+  console.log("   decoded", decodeURIComponent(image));
+  console.log("   image", headshot_image);
   // const subject_photo = `
   //   <div style="max-width: 275px; height: 275px; display: inline-block">
   //     <img

@@ -7,17 +7,20 @@ export function corsProxy(url: string): string {
   // const proxy = `https://cors.bridged.cc/`
 
   // this requires hard coding the whitelist
-  // const proxy = `https://cors-server-parkerhill.vercel.app/`
+  // const proxy = `https://cors-server-parkerhill.vercel.app/`;
 
-  // * this one seems to work
+  // vercel preview
+  // const proxy = "https://cors-anywhere-git-whitelist-parkerhill.vercel.app/";
+
+  // * this one seems to work HEROKU
   // const proxy = `https://corsanywhere.herokuapp.com/`
 
-  // * this mine, seems to work
-  const proxy = `https://parkerhill-cors-anywhere.herokuapp.com/`
+  // * this mine, seems to work HEROKU
+  const proxy = `https://parkerhill-cors-anywhere.herokuapp.com/`;
 
-  return proxy + url
+  return proxy + url;
 }
 
 // https://github.com/Rob--W/cors-anywhere/issues/39#issuecomment-628930502
 // eg <img crossOrigin="anonymous" referrerPolicy="origin" src="URL" />
-export const imgCorsParams = `crossOrigin="anonymous" referrerPolicy="origin"`
+export const imgCorsParams = `crossOrigin="anonymous" referrerPolicy="origin"`;
