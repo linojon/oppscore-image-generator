@@ -8,6 +8,9 @@ const isHtmlDebug = process.env.OG_HTML_DEBUG === "1";
 // example:
 //  https://oppscore-image-generator-parkerhill.vercel.app/api/oppscore?name=John%20Doe&title=President&party=Libertarian&score=4.2&image=https://voteview.com/static/img/bios/099902.jpg&width=1200&height=630
 // /api/oppscore?name=JOHN%20KENNEDY&title=President%2C%20%20USA%20(1961%26%238209%3B1963)&party=Democrat&score=4&image=https%253A%252F%252Fvoteview.com%252Fstatic%252Fimg%252Fbios%252F099902.jpg&width=1200&height=630
+//
+// no photo 
+//  http://localhost:3001/api/oppscore?name=First%20Last&title=Some%20Title&party=Political&score=3.5&width=1000&height=1000
 
 export default async function handler(
   req: IncomingMessage,
