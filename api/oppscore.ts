@@ -37,7 +37,8 @@ async function query_to_image(req: any, res: ServerResponse) {
 
   if (isHtmlDebug || req.query.debug) {
     res.setHeader("Content-Type", "text/html");
-    res.end(html);
+    // res.end(html);
+    res.end(`<body style='background-color: #aaa'>${html}</body>`)
     return;
   }
   const fileType = "png";
