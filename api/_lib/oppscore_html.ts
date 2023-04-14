@@ -159,8 +159,8 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
     text-align: center;
     width: 300;
     z-index: 100;
-    right: -60px;
-    bottom: 75px;
+    left: -60px;
+    top: 75px;
     transform: rotate(-45deg);
     `;
 
@@ -174,6 +174,10 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
     </span>
   </div>`
     : '';
+
+  const unverified_explain = unverified
+    ? `<div style="padding: 0 5em; font-style: italic">* Unverified scores based on user survey responses and have not been validated by Grand Opportunity USA analysts.</div>`
+    : ''
 
   //--------------------------
   const html = `
@@ -191,6 +195,7 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
           </div>
           ${opportunity_score}
           ${unverified_html}
+          ${unverified_explain}
         </div>`;
 
   console.log(html)
