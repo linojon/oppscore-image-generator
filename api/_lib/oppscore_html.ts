@@ -51,8 +51,6 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          position: relative;
-          overflow: hidden;
     `;
 
   // src is 800x240, want 80 h, so 266x80
