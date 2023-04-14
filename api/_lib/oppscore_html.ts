@@ -46,11 +46,10 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
           font-weight: bold;
           font-size: ${scale * 1.5}em;
           text-align: center;
-          padding: ${scale * 30}px;
           background-color: white;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: space-evenly;
     `;
 
   // src is 800x240, want 80 h, so 266x80
