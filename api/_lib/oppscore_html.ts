@@ -176,7 +176,7 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
     : '';
 
   const unverified_explain = unverified
-    ? `<div style="padding: 0 5em; font-style: italic">* Unverified scores based on user survey responses and have not been validated by Grand Opportunity USA analysts.</div>`
+    ? `<div style="padding: 0 5em; font-style: italic; font-weight: normal">* Unverified scores based on user survey responses and have not been validated by Grand Opportunity USA analysts.</div>`
     : ''
 
   //--------------------------
