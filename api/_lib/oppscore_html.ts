@@ -81,10 +81,14 @@ export function oppscore_html_scaled(props: OppscoreHtmlProps, scale: number) {
   //     <p style="margin-top: 0;">${title}<br/>
   //     ${partyStr}</p>
   //   `;
+
+  // todo fix root cause of 'undefined'
+  const xtitle = (!title || title === 'undefined') ? '' : title
+
   const subject_info = `
   <h2></h2>
-  <h1 style="margin: 0; ">${name.toUpperCase()}</h1>
-  <p style="margin-top: 0;">${title || ''}<br/>
+  <h1 style="margin: 0; ">${name?.toUpperCase()}</h1>
+  <p style="margin-top: 0;">${xtitle}<br/>
   ${partyStr}</p>
 `;
 
