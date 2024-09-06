@@ -1,18 +1,22 @@
-import puppeteer, { Page } from "puppeteer-core";
-import { getOptions } from "./options";
-import { FileType } from "./types";
+import chromium from "chrome-aws-lambda";
+import puppeteer, { Browser, Page, ScreenshotOptions } from "puppeteer-core";
 
 let _page: Page | null = null;
 
-async function getPage(isDev: boolean) {
+async function getPage(isDev: boolean): Promise<Page> {
   if (_page) {
     return _page;
   }
 
-  const options = await getOptions(isDev);
+  const options = {
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath || puppeteer.executablePath(),
+    headless: chromium.headless,
+  };
 
   try {
-    const browser = await puppeteer.launch(options);
+    const browser: Browser = await puppeteer.launch(options);
     _page = await browser.newPage();
     return _page;
   } catch (error) {
@@ -25,14 +29,17 @@ export async function getScreenshot(
   width: number,
   height: number,
   html: string,
-  type: FileType,
+  type: ScreenshotOptions["type"],
   isDev: boolean
-) {
+): Promise<Buffer> {
   const page = await getPage(isDev);
   try {
     await page.setViewport({ width, height });
     await page.setContent(html);
-    const file = await page.screenshot({ type });
+    
+    // Explicitly type the return value as Buffer
+    const file: Buffer = await page.screenshot({ type }) as Buffer;
+    
     return file;
   } catch (error) {
     console.error("Failed to generate screenshot", error);
