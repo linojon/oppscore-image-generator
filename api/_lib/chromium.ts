@@ -4,6 +4,8 @@ import puppeteer, { Browser, Page, ScreenshotOptions } from "puppeteer-core";
 let _page: Page | null = null;
 
 async function getPage(isDev: boolean): Promise<Page> {
+  if (isDev) console.log('isDev is set');
+  
   if (_page) {
     return _page;
   }
