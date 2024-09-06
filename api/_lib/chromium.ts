@@ -1,16 +1,24 @@
-import core from "puppeteer-core";
+import puppeteer, { Page } from "puppeteer-core";
 import { getOptions } from "./options";
 import { FileType } from "./types";
-let _page: core.Page | null;
+
+let _page: Page | null = null;
 
 async function getPage(isDev: boolean) {
   if (_page) {
     return _page;
   }
+
   const options = await getOptions(isDev);
-  const browser = await core.launch(options);
-  _page = await browser.newPage();
-  return _page;
+
+  try {
+    const browser = await puppeteer.launch(options);
+    _page = await browser.newPage();
+    return _page;
+  } catch (error) {
+    console.error("Failed to launch the browser or open a new page", error);
+    throw new Error("Browser launch failed");
+  }
 }
 
 export async function getScreenshot(
@@ -21,8 +29,13 @@ export async function getScreenshot(
   isDev: boolean
 ) {
   const page = await getPage(isDev);
-  await page.setViewport({ width, height });
-  await page.setContent(html);
-  const file = await page.screenshot({ type });
-  return file;
+  try {
+    await page.setViewport({ width, height });
+    await page.setContent(html);
+    const file = await page.screenshot({ type });
+    return file;
+  } catch (error) {
+    console.error("Failed to generate screenshot", error);
+    throw error;
+  }
 }

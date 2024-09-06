@@ -1,16 +1,16 @@
 {
   "private": true,
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "build": "tsc -p api/tsconfig.json && tsc -p web/tsconfig.json",
     "dev (comment)": "vercel dev -l 3001"
   },
   "dependencies": {
-    "chrome-aws-lambda": "7.0.0",
+    "chrome-aws-lambda": "10.1.0",
     "marked": "4.0.10",
-    "puppeteer-core": "13.1.2",
+    "puppeteer-core": "23.3.0",
     "twemoji": "13.0.1"
   },
   "devDependencies": {
