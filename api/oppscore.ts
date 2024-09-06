@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { parse } from "url"; // Import URL parser
 import { getScreenshot } from "./_lib/chromium";
 import { oppscore_html } from "./_lib/oppscore_html";
 
@@ -29,7 +30,9 @@ export default async function handler(
 async function query_to_image(req: any, res: ServerResponse) {
   // assert query has these properties:
   // const { name, title, party, score, image, debug } = req.query
-  const { width, height } = req.query;
+  const queryObject = parse(req.url || "", true).query; // Use parse to get query parameters
+
+  const { width, height } = queryObject;
   console.log("query_to_image url", req.url);
   console.log(req.query.name, "width", width, "height", height);
   const html = oppscore_html(req.query);
