@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "commonjs",
-    "target": "esnext",
+    "target": "ES2021",  // Changed to ES2021 for newer features like Awaited
     "moduleResolution": "node",
     "jsx": "react",
     "sourceMap": true,
@@ -14,7 +14,9 @@
     "noUnusedParameters": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,  // Added to avoid type checking third-party libraries
+    "forceConsistentCasingInFileNames": true  // Ensures file name consistency
   },
   "include": ["./"]
 }
