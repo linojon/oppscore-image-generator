@@ -5,7 +5,7 @@ let _page: Page | null = null;
 
 async function getPage(isDev: boolean): Promise<Page> {
   if (isDev) console.log('isDev is set');
-  
+
   if (_page) {
     return _page;
   }
@@ -13,7 +13,7 @@ async function getPage(isDev: boolean): Promise<Page> {
   const options = {
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath || puppeteer.executablePath(),
+    executablePath: await chromium.executablePath,
     headless: chromium.headless,
   };
 
